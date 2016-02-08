@@ -54,9 +54,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                 }
         })
         task.resume()
-
+        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -72,7 +72,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell
-        
         let movie = movies![indexPath.row]
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
@@ -86,9 +85,14 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             cell.posterView.setImageWithURL(imageURL!)
         }
         
+        // Use a red color when the user selects the cell
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.grayColor()
+        cell.selectedBackgroundView = backgroundView
+        
         return cell
     }
-
+    
     // Makes a network request to get updated data
     // Updates the tableView with the new data
     // Hides the RefreshControl
@@ -123,7 +127,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         });
         task.resume()
     }
-
+    
     
     func loadDataFromNetwork() {
         
@@ -154,10 +158,10 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         });
         task.resume()
     }
-
-
+    
+    
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
@@ -167,8 +171,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         let detailViewController = segue.destinationViewController as! DetailViewController
         detailViewController.movie = movie
         
+        
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
 }
-
